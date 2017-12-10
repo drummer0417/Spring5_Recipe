@@ -50,8 +50,17 @@ public class Recipe {
 	@JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
-	@OneToOne
-	private UnitOfMeasure unitOfMeasure;
+	// @OneToOne
+	// private UnitOfMeasure unitOfMeasure;
+	//
+	public void addCategory(Category category) {
+		this.categories.add(category);
+	}
+
+	public void addIngredient(Ingredient ingredient) {
+		ingredient.setRecipe(this);
+		this.ingredients.add(ingredient);
+	}
 
 	public Long getId() {
 		return id;
@@ -130,6 +139,7 @@ public class Recipe {
 	}
 
 	public void setNotes(Notes notes) {
+		notes.setRecipe(this);
 		this.notes = notes;
 	}
 

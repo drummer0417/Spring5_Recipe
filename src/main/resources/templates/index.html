@@ -17,6 +17,7 @@
 			<th>Cook time</th>
 			<th>Difficulty</th>
 			<th>Servings</th>
+			<th>Source</th>
 
 		</tr>
 		<tr th:each="recipe : ${recipes}">
@@ -24,7 +25,9 @@
 			<td th:text="${recipe.prepTime}">prep time</td>
 			<td th:text="${recipe.cookTime}">cook time</td>
 			<td th:text="${recipe.difficulty}">difficulty</td>
-			<td th:text="${recipe.servings}">servings</td>		</tr>
+			<td th:text="${recipe.servings}">servings</td>
+			<td th:text="${recipe.source}">source</td>
+		</tr>
 	</table>
 </body>
 </html>
