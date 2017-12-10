@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" , xml:nl="http://www.thymeleaf.org">
+<html lang="en" , xml:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="UTF-8" />
 <title>Recipe</title>
 </head>
 <body>
-	<h1>My Recipes!</h1>
+	<h1>All Recipes...</h1>
+	<hr>
+	<br>
 
+	<table>
+		<tr>
+			<th>Description</th>
+			<th>prep time</th>
+			<th>Cook time</th>
+			<th>Difficulty</th>
+			<th>Servings</th>
+
+		</tr>
+		<tr th:each="recipe : ${recipes}">
+			<td th:text="${recipe.description}">a recipe</td>
+			<td th:text="${recipe.prepTime}">prep time</td>
+			<td th:text="${recipe.cookTime}">cook time</td>
+			<td th:text="${recipe.difficulty}">difficulty</td>
+			<td th:text="${recipe.servings}">servings</td>		</tr>
+	</table>
 </body>
 </html>

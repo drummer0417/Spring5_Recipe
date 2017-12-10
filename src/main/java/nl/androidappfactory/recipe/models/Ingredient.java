@@ -17,7 +17,7 @@ public class Ingredient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	String description;
+	private String description;
 	private BigDecimal amount;
 
 	@OneToOne(fetch = FetchType.EAGER) // EAGER is actually default, only here for documentation
@@ -25,6 +25,15 @@ public class Ingredient {
 
 	@ManyToOne
 	private Recipe recipe;
+
+	public Ingredient() {}
+
+	public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure, Recipe recipe) {
+		this.description = description;
+		this.amount = amount;
+		this.unitOfMeasure = unitOfMeasure;
+		this.recipe = recipe;
+	}
 
 	public Long getId() {
 		return id;
