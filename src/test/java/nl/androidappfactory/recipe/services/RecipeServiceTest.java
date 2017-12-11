@@ -36,7 +36,7 @@ public class RecipeServiceTest {
 
 		List<Recipe> recipes = new ArrayList<>();
 		recipes.add(new Recipe());
-		long expectedRecipesReturned = 2;
+		long expectedRecipesReturned = 1;
 
 		when(recipeService.getAllRecipes()).thenReturn(recipes);
 
