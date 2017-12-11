@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
 import nl.androidappfactory.recipe.models.Category;
 import nl.androidappfactory.recipe.models.Difficulty;
 import nl.androidappfactory.recipe.models.Ingredient;
@@ -24,6 +25,7 @@ import nl.androidappfactory.recipe.repositories.UnitOfMeasureRepository;
  * @author Hans van Meurs
  *
  */
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -39,8 +41,11 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 	}
 
 	@Override
+	// @Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		recipeRepository.saveAll(getRecipes());
+		List<Recipe> recipes = getRecipes();
+		log.debug("Save recipes: " + recipes);
+		recipeRepository.saveAll(recipes);
 	}
 
 	private List<Recipe> getRecipes() {
@@ -169,6 +174,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 		guacRecipe.setSource("Simply Recipes");
 
 		// add to return list
+		log.debug("Bootstrap: Guacamole recipe: " + guacRecipe);
 		recipes.add(guacRecipe);
 
 		// Yummy Tacos

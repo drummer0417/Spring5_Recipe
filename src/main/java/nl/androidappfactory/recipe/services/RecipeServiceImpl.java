@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import nl.androidappfactory.recipe.models.Recipe;
 import nl.androidappfactory.recipe.repositories.RecipeRepository;
 
+@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
@@ -19,9 +21,9 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public List<Recipe> getAllRecipes() {
 
+		log.debug("in: getAllRecipes()");
 		List<Recipe> recipes = (List<Recipe>) recipeRepository.findAll();
-		System.out.println("getAll: " + recipes);
+
 		return recipes;
 	}
-
 }
