@@ -15,7 +15,7 @@ import nl.androidappfactory.recipe.models.UnitOfMeasure;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class UnitOfMeasureRepositoryTest {
+public class UnitOfMeasureRepositoryIT {
 
 	@Autowired
 	UnitOfMeasureRepository unitOfMeasureRepository;
@@ -24,11 +24,21 @@ public class UnitOfMeasureRepositoryTest {
 	public void setUp() throws Exception {}
 
 	@Test
-	public void test() {
+	public void testGetTeaspoon() {
 
 		String expectedUomDescription = "Teaspoon";
 
 		Optional<UnitOfMeasure> uom = unitOfMeasureRepository.findByDescription("Teaspoon");
+
+		assertEquals(expectedUomDescription, uom.get().getDescription());
+	}
+
+	@Test
+	public void testgetCup() {
+
+		String expectedUomDescription = "Cup";
+
+		Optional<UnitOfMeasure> uom = unitOfMeasureRepository.findByDescription("Cup");
 
 		assertEquals(expectedUomDescription, uom.get().getDescription());
 	}
