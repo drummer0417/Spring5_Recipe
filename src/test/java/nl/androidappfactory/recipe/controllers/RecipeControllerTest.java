@@ -1,6 +1,10 @@
 package nl.androidappfactory.recipe.controllers;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -9,16 +13,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
 
 import nl.androidappfactory.recipe.models.Recipe;
 import nl.androidappfactory.recipe.services.RecipeService;
 
 /**
- * Created by jt on 6/17/17.
+ * 
+ * @author Hans van Meurs
+ *
  */
 
 public class RecipeControllerTest {
@@ -26,6 +34,8 @@ public class RecipeControllerTest {
 	@Mock
 	RecipeService recipeService;
 
+	@Mock
+	Model uiModel;
 	RecipeController controller;
 
 	@Before
@@ -50,5 +60,29 @@ public class RecipeControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("recipe"))
 				.andExpect(view().name(expectedView));
+	}
+
+	@Test
+	public void getRecipePage() throws Exception {
+
+		// given
+
+		Recipe recipe = new Recipe();
+		recipe.setId(1l);
+		recipe.setDescription("Frikandel");
+
+		when(recipeService.findById(anyLong())).thenReturn(recipe);
+
+		ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class);
+
+		// when
+		String viewName = controller.getRecipeById("1", uiModel);
+
+		// then
+		assertEquals("recipe/show", viewName);
+		verify(recipeService, times(1)).findById(anyLong());
+		verify(uiModel, times(1)).addAttribute(eq("recipe"), argumentCaptor.capture());
+		Recipe recipeInController = argumentCaptor.getValue();
+		assertEquals(recipe.getDescription(), recipeInController.getDescription());
 	}
 }

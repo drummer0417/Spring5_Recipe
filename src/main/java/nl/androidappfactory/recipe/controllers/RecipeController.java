@@ -25,9 +25,6 @@ public class RecipeController {
 
 		Recipe recipe = recipeService.findById(new Long(id));
 		log.debug("recipe: " + recipe);
-		// log.debug("cat: " + recipe.getCategories());
-		// log.debug("directions: " + recipe.getDirections());
-		// log.debug("notes: " + recipe.getNotes());
 		model.addAttribute("recipe", recipe);
 
 		return "recipe/show";
