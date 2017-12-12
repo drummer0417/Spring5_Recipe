@@ -30,6 +30,6 @@ public class RecipeController {
 		// log.debug("notes: " + recipe.getNotes());
 		model.addAttribute("recipe", recipe);
 
-		return "/recipe/show";
+		return "recipe/show";
 	}
 }

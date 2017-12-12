@@ -1,6 +1,7 @@
 package nl.androidappfactory.recipe.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,11 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public Recipe findById(long id) {
 
-		return recipeRepository.findById(id).get();
+		Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+
+		if (!recipeOptional.isPresent()) {
+			throw new RuntimeException("Recipe not found");
+		}
+		return recipeOptional.get();
 	}
 }
