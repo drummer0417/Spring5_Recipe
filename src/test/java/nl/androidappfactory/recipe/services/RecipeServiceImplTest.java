@@ -17,6 +17,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import nl.androidappfactory.recipe.converters.RecipeCommandToRecipe;
+import nl.androidappfactory.recipe.converters.RecipeToRecipeCommand;
 import nl.androidappfactory.recipe.models.Recipe;
 import nl.androidappfactory.recipe.repositories.RecipeRepository;
 
@@ -26,12 +28,14 @@ public class RecipeServiceImplTest {
 
 	@Mock
 	private RecipeRepository recipeRepository;
+	private RecipeCommandToRecipe recipeCommandToRecipe;
+	private RecipeToRecipeCommand recipeToRecipeCommand;
 
 	@Before
 	public void setup() {
 
 		MockitoAnnotations.initMocks(this);
-		recipeService = new RecipeServiceImpl(recipeRepository);
+		recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
 
 	}
 

@@ -2,12 +2,15 @@ package nl.androidappfactory.recipe.services;
 
 import java.util.List;
 
+import nl.androidappfactory.recipe.commands.RecipeCommand;
 import nl.androidappfactory.recipe.models.Recipe;
 
 public interface RecipeService {
 
-	public List<Recipe> getAllRecipes();
+	List<Recipe> getAllRecipes();
 
-	public Recipe findById(long l);
+	Recipe findById(long l);
+
+	RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand);
 
 }
