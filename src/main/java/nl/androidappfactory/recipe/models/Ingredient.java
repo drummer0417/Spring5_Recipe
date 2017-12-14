@@ -10,10 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-// @EqualsAndHashCode(exclude = { "recipe" })
+@Getter
+@Setter
 @Entity
 public class Ingredient {
 
@@ -42,6 +43,23 @@ public class Ingredient {
 	public String toString() {
 		return "Ingredient [id=" + id + ", description=" + description + ", amount=" + amount + ", recipe=" + recipe
 				+ "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Ingredient))
+			return false;
+		Ingredient other = (Ingredient) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	@Override
