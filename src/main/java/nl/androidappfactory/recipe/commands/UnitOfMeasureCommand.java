@@ -6,6 +6,7 @@ package nl.androidappfactory.recipe.commands;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author Hans van Meurs
@@ -14,6 +15,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class UnitOfMeasureCommand {
 

@@ -14,10 +14,11 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"
-	th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+	th:src="@{/webjars/bootstrap/3.3.7-1/js++/bootstrap.min.js}"></script>
 </head>
 <body>
-	<!--/*@thymesVar id="recipe" type="nl.androidappfactory.models.Recipe"*/-->				
+	-
+	<!--/*@thymesVar id="recipe" type="nl.androidappfactory.models.Recipe"*/-->
 	<div class="container-fluid" style="margin-top: 20px">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -84,51 +85,60 @@
 					</div>
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<h1 class="panel-title">Ingredients</h1>
-						</div>
-						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-12">
-									<ul th:each="ingredient : ${recipe.ingredients}">
-										<li
-											th:text="${ingredient.amount}
+								<div class="col-md-11 ">
+									<h1 class="panel-title">Ingredients</h1>
+								</div>
+								<div class="col-md-1">
+									<a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-12">
+								<ul th:each="ingredient : ${recipe.ingredients}">
+									<li
+										th:text="${ingredient.amount}
 											 +  ' ' + ${ingredient.uom.description}
-											 + ' - ' + ${ingredient.description}">1 gallon milk</li>
-									</ul>
-								</div>
+											 + ' - ' + ${ingredient.description}">1
+										gallon milk</li>
+								</ul>
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h1 class="panel-title">Directions</h1>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-12">
-									<p th:text="${recipe.directions}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-										ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-										ridiculus mus.</p>
-								</div>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h1 class="panel-title">Directions</h1>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-12">
+								<p th:text="${recipe.directions}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+									ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
+									ridiculus mus.</p>
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h1 class="panel-title">Notes</h1>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-12">
-									<p th:text="${recipe.notes.recipeNotes}">Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-										arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
-								</div>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h1 class="panel-title">Notes</h1>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-12">
+								<p th:text="${recipe.notes.recipeNotes}">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+									In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

@@ -24,6 +24,7 @@ public class IngredientToIngredientCommandTest {
 	public static final String DESCRIPTION = "Cheeseburger";
 	public static final Long UOM_ID = new Long(2L);
 	public static final Long ID_VALUE = new Long(1L);
+	public static final Long RECIPE_ID = new Long(101L);
 
 	IngredientToIngredientCommand converter;
 
@@ -45,20 +46,25 @@ public class IngredientToIngredientCommandTest {
 	@Test
 	public void testConvertNullUOM() throws Exception {
 		// given
+		RECIPE.setId(RECIPE_ID);
+
 		Ingredient ingredient = new Ingredient();
 		ingredient.setId(ID_VALUE);
 		ingredient.setRecipe(RECIPE);
 		ingredient.setAmount(AMOUNT);
 		ingredient.setDescription(DESCRIPTION);
 		ingredient.setUom(null);
+
 		// when
 		IngredientCommand ingredientCommand = converter.convert(ingredient);
+
 		// then
 		assertNull(ingredientCommand.getUom());
 		assertEquals(ID_VALUE, ingredientCommand.getId());
 		// assertEquals(RECIPE, ingredientCommand.get);
 		assertEquals(AMOUNT, ingredientCommand.getAmount());
 		assertEquals(DESCRIPTION, ingredientCommand.getDescription());
+		assertEquals(RECIPE_ID, ingredientCommand.getRecipeId());
 	}
 
 	@Test
