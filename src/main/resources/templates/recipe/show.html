@@ -92,7 +92,7 @@
 									<ul th:each="ingredient : ${recipe.ingredients}">
 										<li
 											th:text="${ingredient.amount}
-											 +  ' ' + ${ingredient.unitOfMeasure.description}
+											 +  ' ' + ${ingredient.uom.description}
 											 + ' - ' + ${ingredient.description}">1 gallon milk</li>
 									</ul>
 								</div>

@@ -36,6 +36,8 @@ public class Notes {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((recipe == null) ? 0 : recipe.hashCode());
+		result = prime * result + ((recipeNotes == null) ? 0 : recipeNotes.hashCode());
 		return result;
 	}
 
@@ -52,6 +54,16 @@ public class Notes {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (recipe == null) {
+			if (other.recipe != null)
+				return false;
+		} else if (!recipe.equals(other.recipe))
+			return false;
+		if (recipeNotes == null) {
+			if (other.recipeNotes != null)
+				return false;
+		} else if (!recipeNotes.equals(other.recipeNotes))
 			return false;
 		return true;
 	}

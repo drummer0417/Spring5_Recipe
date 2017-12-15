@@ -6,6 +6,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import nl.androidappfactory.recipe.models.Difficulty;
 
 /**
@@ -13,6 +14,7 @@ import nl.androidappfactory.recipe.models.Difficulty;
  */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class RecipeCommand {
 	private Long id;

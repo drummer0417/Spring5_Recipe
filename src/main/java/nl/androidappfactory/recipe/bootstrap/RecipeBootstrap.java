@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -41,7 +43,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 	}
 
 	@Override
-	// @Transactional
+	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		List<Recipe> recipes = getRecipes();
 		log.debug("Save recipes: " + recipes);
@@ -167,6 +169,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 		guacRecipe.addIngredient(new Ingredient("ripe tomato, seeds and pulp removed, chopped",
 				new BigDecimal(".5"), eachUom));
 
+		log.debug("guac #ingredients: " + guacRecipe.getIngredients().size());
 		guacRecipe.addCategory(americanCategory);
 		guacRecipe.addCategory(mexicanCategory);
 		guacRecipe.setServings(4);
