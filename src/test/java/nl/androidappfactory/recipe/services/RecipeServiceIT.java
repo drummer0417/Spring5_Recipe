@@ -26,6 +26,7 @@ import nl.androidappfactory.recipe.repositories.RecipeRepository;
 public class RecipeServiceIT {
 
 	public static final String NEW_DESCRIPTION = "New Description";
+	public static final String RECIPE_NOT_FOUND = "Recipe not found";
 
 	@Autowired
 	RecipeService recipeService;
@@ -56,5 +57,27 @@ public class RecipeServiceIT {
 		assertEquals(testRecipe.getId(), savedRecipeCommand.getId());
 		assertEquals(testRecipe.getCategories().size(), savedRecipeCommand.getCategories().size());
 		assertEquals(testRecipe.getIngredients().size(), savedRecipeCommand.getIngredients().size());
+	}
+
+	@Transactional
+	@Test(expected = RuntimeException.class)
+	public void testDeleteRecipe() throws Exception {
+
+		// given
+		Long idToDelete = 1l;
+
+		// when
+		recipeService.deleteByID(idToDelete);
+		try {
+
+			// then
+			recipeService.findCommandById(idToDelete);
+
+		} catch (RuntimeException e) {
+
+			// then 2
+			assertEquals(RECIPE_NOT_FOUND, e.getMessage());
+			throw e;
+		}
 	}
 }

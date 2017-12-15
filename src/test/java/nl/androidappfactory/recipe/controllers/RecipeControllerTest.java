@@ -2,6 +2,8 @@ package nl.androidappfactory.recipe.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -94,5 +96,23 @@ public class RecipeControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(view().name("recipe/recipeform"))
 				.andExpect(model().attributeExists("recipe"));
+	}
+
+	@Test
+	public void testDeleteRecipe() throws Exception {
+
+		// given
+		RecipeCommand command = new RecipeCommand();
+		command.setId(2L);
+
+		when(recipeService.findCommandById(anyLong())).thenReturn(command);
+
+		// when
+		mockMvc.perform(get("/recipe/2/delete"))
+				// then
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/index"));
+
+		verify(recipeService, times(1)).deleteByID(anyLong());
 	}
 }
