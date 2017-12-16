@@ -61,6 +61,11 @@ public class Recipe {
 		this.ingredients.add(ingredient);
 	}
 
+	public void removeIngredient(Ingredient ingredient) {
+		// ingredient.setRecipe(null);
+		this.ingredients.remove(ingredient);
+	}
+
 	public void setNotes(Notes notes) {
 		if (notes != null) {
 			notes.setRecipe(this);

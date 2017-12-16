@@ -42,6 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
 		if (!recipeOptional.isPresent()) {
+			// Todo: Add real error handling here
 			throw new RuntimeException("Recipe not found");
 		}
 		return recipeOptional.get();
@@ -53,6 +54,7 @@ public class RecipeServiceImpl implements RecipeService {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
 		if (!recipeOptional.isPresent()) {
+			// Todo: Add real error handling here
 			throw new RuntimeException("Recipe not found");
 		}
 		return recipeToCommandConverter.convert(recipeOptional.get());

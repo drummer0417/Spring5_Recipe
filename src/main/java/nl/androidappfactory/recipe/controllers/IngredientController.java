@@ -45,4 +45,13 @@ public class IngredientController {
 
 		return "recipe/ingredient/show";
 	}
+
+	@GetMapping("/recipe/{recipeId}/ingredient/{ingredientId}/delete")
+	public String deleteIngredient(@PathVariable String recipeId, @PathVariable String ingredientId, Model modewl) {
+
+		ingredientService.deleteIngredient(new Long(recipeId), new Long(ingredientId));
+
+		return "redirect:/recipe/" + recipeId + "/ingredients";
+
+	}
 }
