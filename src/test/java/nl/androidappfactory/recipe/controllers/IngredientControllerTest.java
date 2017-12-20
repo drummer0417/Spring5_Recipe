@@ -1,10 +1,12 @@
 package nl.androidappfactory.recipe.controllers;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -17,10 +19,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import nl.androidappfactory.recipe.commands.IngredientCommand;
 import nl.androidappfactory.recipe.commands.RecipeCommand;
 import nl.androidappfactory.recipe.services.IngredientService;
 import nl.androidappfactory.recipe.services.RecipeService;
+import nl.androidappfactory.recipe.services.UnitOfMeasureServise;
 
 @Controller
 public class IngredientControllerTest {
@@ -31,6 +36,9 @@ public class IngredientControllerTest {
 	@Mock
 	IngredientService ingredientService;
 
+	@Mock
+	UnitOfMeasureServise unitOfMeasureService;
+
 	IngredientController controller;
 
 	MockMvc mockMvc;
@@ -40,7 +48,7 @@ public class IngredientControllerTest {
 
 		MockitoAnnotations.initMocks(this);
 
-		controller = new IngredientController(recipeService, ingredientService);
+		controller = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
 	}
@@ -68,7 +76,7 @@ public class IngredientControllerTest {
 		// Given
 		IngredientCommand ingredientCommand = new IngredientCommand();
 
-		when(ingredientService.findByRecipeAndIngredientId(anyLong(), anyLong())).thenReturn(ingredientCommand);
+		when(ingredientService.findByRecipeIdAndIngredientId(anyLong(), anyLong())).thenReturn(ingredientCommand);
 
 		mockMvc.perform(get("/recipe/1/ingredient/2/show"))
 				.andExpect(status().isOk())
@@ -82,5 +90,43 @@ public class IngredientControllerTest {
 		mockMvc.perform(get("/recipe/1/ingredient/2/delete"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/recipe/1/ingredients"));
+
+		verify(ingredientService, times(1)).deleteIngredient(anyLong(), anyLong());
 	}
+
+	@Test
+	public void saveIngredient() throws Exception {
+
+		IngredientCommand ic = new IngredientCommand();
+		ic.setId(3l);
+
+		mockMvc.perform(post("/recipe/2/ingredient")
+				.param("id", String.valueOf(ic.getId())))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/recipe/2/ingredients"));
+
+		verify(ingredientService, times(1)).updateIngredient(any());
+	}
+
+	@Test
+	public void createIngredient() throws Exception {
+
+		mockMvc.perform(post("/recipe/2/ingredient")
+				.param("id", ""))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/recipe/2/ingredients"));
+
+		verify(ingredientService, times(1)).createIngredient(any());
+	}
+
+	public static String asJsonString(final Object obj) {
+		try {
+			final ObjectMapper mapper = new ObjectMapper();
+			final String jsonContent = mapper.writeValueAsString(obj);
+			return jsonContent;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }

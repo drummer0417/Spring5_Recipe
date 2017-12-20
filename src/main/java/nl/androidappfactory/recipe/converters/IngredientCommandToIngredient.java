@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import nl.androidappfactory.recipe.commands.IngredientCommand;
 import nl.androidappfactory.recipe.models.Ingredient;
+import nl.androidappfactory.recipe.models.Recipe;
 
 /**
  * Created by jt on 6/21/17.
@@ -31,6 +32,11 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
 		ingredient.setAmount(source.getAmount());
 		ingredient.setDescription(source.getDescription());
 		ingredient.setUom(uomConverter.convert(source.getUom()));
+		if (source.getRecipeId() != null) {
+			Recipe recipe = new Recipe();
+			recipe.setId(source.getRecipeId());
+			ingredient.setRecipe(recipe);
+		}
 		return ingredient;
 	}
 }

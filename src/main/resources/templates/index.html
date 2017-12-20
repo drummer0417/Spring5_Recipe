@@ -49,7 +49,7 @@
 									<td th:text="${recipe.description}">Tasty Goodnees 1</td>
 									<td th:text="${recipe.prepTime}">prep time</td>
 									<td th:text="${recipe.cookTime}">cook time</td>
-									<td th:text="${recipe.difficulty}">difficulty</td>
+									<td th:text="${recipe.difficultyValue.getValue()}">difficulty</td>
 									<td th:text="${recipe.servings}">servings</td>
 									<td th:text="${recipe.source}">source</td>
 									<td><a href="#" th:href="@{'/recipe/show/' + ${recipe.id}}">View</a></td>
@@ -70,7 +70,7 @@
 									<td th:text="${recipe.description}">Tasty Goodnees 3</td>
 									<td th:text="${recipe.prepTime}">prep time</td>
 									<td th:text="${recipe.cookTime}">cook time</td>
-									<td th:text="${recipe.difficulty}">difficulty</td>
+									<td th:text="${recipe.difficulty.getValue()}">difficulty</td>
 									<td th:text="${recipe.servings}">servings</td>
 									<td th:text="${recipe.source}">source</td>
 									<td><a href="#" th:href="@{'/recipe/' +  ${recipe.id} + '/show' }">View.</a>

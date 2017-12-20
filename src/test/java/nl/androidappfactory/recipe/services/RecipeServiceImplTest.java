@@ -69,7 +69,7 @@ public class RecipeServiceImplTest {
 		assertEquals(expectedRecipesReturned, recipeService.getAllRecipes().size());
 
 		// verify that recipeRepository.getAllRecipes is called once and onde only
-		verify(recipeRepository, times(1)).findAll();
+		verify(recipeRepository, times(1)).findAllByOrderByDescription();
 	}
 
 	@Test

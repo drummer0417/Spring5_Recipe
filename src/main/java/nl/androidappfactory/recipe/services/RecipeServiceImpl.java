@@ -31,7 +31,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<Recipe> getAllRecipes() {
 
 		log.debug("in: getAllRecipes()");
-		List<Recipe> recipes = (List<Recipe>) recipeRepository.findAll();
+		List<Recipe> recipes = (List<Recipe>) recipeRepository.findAllByOrderByDescription();
 
 		return recipes;
 	}

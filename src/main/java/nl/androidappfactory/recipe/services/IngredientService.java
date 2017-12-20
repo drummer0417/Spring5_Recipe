@@ -4,7 +4,11 @@ import nl.androidappfactory.recipe.commands.IngredientCommand;
 
 public interface IngredientService {
 
-	public IngredientCommand findByRecipeAndIngredientId(Long recipeId, Long ingredientId);
+	public IngredientCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId);
 
 	public void deleteIngredient(long recipeId, long ingredientId);
+
+	public IngredientCommand updateIngredient(IngredientCommand igredientCommand);
+
+	public IngredientCommand createIngredient(IngredientCommand ingredientCommand);
 }
