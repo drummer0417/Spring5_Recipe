@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import nl.androidappfactory.recipe.commands.CategoryCommand;
 import nl.androidappfactory.recipe.commands.RecipeCommand;
 import nl.androidappfactory.recipe.converters.RecipeCommandToRecipe;
 import nl.androidappfactory.recipe.converters.RecipeToRecipeCommand;
@@ -64,7 +65,19 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
 
+		recipeCommand.getCategories().clear();
+
+		for (String id : recipeCommand.getSelectedCategories()) {
+			CategoryCommand categoryCommand = new CategoryCommand();
+			categoryCommand.setId(new Long(id));
+			recipeCommand.addCategory(categoryCommand);
+			log.debug("newCategory, id: " + id);
+		}
+
 		Recipe recipe = commandToRecipeConverter.convert(recipeCommand);
+
+		log.debug("#categories after convert: " + recipe.getCategories().size());
+
 		Recipe savedRecipe = null;
 
 		if (recipe != null) {

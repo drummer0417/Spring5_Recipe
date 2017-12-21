@@ -8,9 +8,6 @@ import lombok.Synchronized;
 import nl.androidappfactory.recipe.commands.CategoryCommand;
 import nl.androidappfactory.recipe.models.Category;
 
-/**
- * Created by jt on 6/21/17.
- */
 @Component
 public class CategoryCommandToCategory implements Converter<CategoryCommand, Category> {
 

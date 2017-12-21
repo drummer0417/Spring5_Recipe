@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import nl.androidappfactory.recipe.commands.RecipeCommand;
 import nl.androidappfactory.recipe.models.Recipe;
+import nl.androidappfactory.recipe.services.CategoryService;
 import nl.androidappfactory.recipe.services.RecipeService;
 
 /**
@@ -34,6 +35,9 @@ public class RecipeControllerTest {
 	@Mock
 	RecipeService recipeService;
 
+	@Mock
+	CategoryService categoryService;
+
 	RecipeController controller;
 
 	MockMvc mockMvc;
@@ -42,7 +46,7 @@ public class RecipeControllerTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 
-		controller = new RecipeController(recipeService);
+		controller = new RecipeController(recipeService, categoryService);
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
@@ -62,7 +66,6 @@ public class RecipeControllerTest {
 
 	@Test
 	public void testGetNewRecipeForm() throws Exception {
-		RecipeCommand command = new RecipeCommand();
 
 		mockMvc.perform(get("/recipe/new"))
 				.andExpect(status().isOk())
