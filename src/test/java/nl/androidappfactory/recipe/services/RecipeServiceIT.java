@@ -47,6 +47,7 @@ public class RecipeServiceIT {
 		Iterable<Recipe> recipes = recipeRepository.findAll();
 		Recipe testRecipe = recipes.iterator().next();
 		RecipeCommand testRecipeCommand = recipeToRecipeCommand.convert(testRecipe);
+		testRecipeCommand.setSelectedCategories(new String[] { "1", "3" });
 
 		// when
 		testRecipeCommand.setDescription(NEW_DESCRIPTION);
