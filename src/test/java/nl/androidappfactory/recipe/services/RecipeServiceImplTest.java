@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 
 import nl.androidappfactory.recipe.converters.RecipeCommandToRecipe;
 import nl.androidappfactory.recipe.converters.RecipeToRecipeCommand;
+import nl.androidappfactory.recipe.exceptions.NotFoundException;
 import nl.androidappfactory.recipe.models.Recipe;
 import nl.androidappfactory.recipe.repositories.RecipeRepository;
 
@@ -82,4 +83,13 @@ public class RecipeServiceImplTest {
 		verify(recipeRepository, times(1)).deleteById(anyLong());
 	}
 
+	@Test(expected = NotFoundException.class)
+	public void testRecipeByIdNotFoundException() {
+
+		Optional<Recipe> recipeOptional = Optional.empty();
+
+		when(recipeRepository.findById(anyLong())).thenThrow(NotFoundException.class);
+
+		Optional<Recipe> recipeReturned = recipeRepository.findById(1l);
+	}
 }
