@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import nl.androidappfactory.recipe.commands.RecipeCommand;
 import nl.androidappfactory.recipe.converters.RecipeCommandToRecipe;
 import nl.androidappfactory.recipe.converters.RecipeToRecipeCommand;
+import nl.androidappfactory.recipe.exceptions.NotFoundException;
 import nl.androidappfactory.recipe.models.Recipe;
 import nl.androidappfactory.recipe.repositories.RecipeRepository;
 
@@ -61,7 +62,7 @@ public class RecipeServiceIT {
 	}
 
 	@Transactional
-	@Test(expected = RuntimeException.class)
+	@Test(expected = NotFoundException.class)
 	public void testDeleteRecipe() throws Exception {
 
 		// given
@@ -74,7 +75,7 @@ public class RecipeServiceIT {
 			// then
 			recipeService.findCommandById(idToDelete);
 
-		} catch (RuntimeException e) {
+		} catch (NotFoundException e) {
 
 			// then 2
 			assertEquals(RECIPE_NOT_FOUND, e.getMessage());

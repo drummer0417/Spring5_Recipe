@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import nl.androidappfactory.recipe.commands.RecipeCommand;
+import nl.androidappfactory.recipe.exceptions.NotFoundException;
 import nl.androidappfactory.recipe.models.Recipe;
 import nl.androidappfactory.recipe.services.CategoryService;
 import nl.androidappfactory.recipe.services.RecipeService;
@@ -118,4 +119,14 @@ public class RecipeControllerTest {
 
 		verify(recipeService, times(1)).deleteByID(anyLong());
 	}
+
+	@Test
+	public void testRecipeNotFound() throws Exception {
+
+		when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+		mockMvc.perform(get("/recipe/1/show"))
+				.andExpect(status().isNotFound());
+	}
+
 }

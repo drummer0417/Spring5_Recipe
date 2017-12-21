@@ -1,8 +1,12 @@
 package nl.androidappfactory.recipe.services;
 
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Test;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +14,7 @@ import nl.androidappfactory.recipe.commands.CategoryCommand;
 import nl.androidappfactory.recipe.commands.RecipeCommand;
 import nl.androidappfactory.recipe.converters.RecipeCommandToRecipe;
 import nl.androidappfactory.recipe.converters.RecipeToRecipeCommand;
+import nl.androidappfactory.recipe.exceptions.NotFoundException;
 import nl.androidappfactory.recipe.models.Recipe;
 import nl.androidappfactory.recipe.repositories.RecipeRepository;
 
@@ -44,7 +49,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 		if (!recipeOptional.isPresent()) {
 			// Todo: Add real error handling here
-			throw new RuntimeException("Recipe not found");
+			throw new NotFoundException("Recipe not found");
 		}
 		return recipeOptional.get();
 	}
@@ -92,6 +97,16 @@ public class RecipeServiceImpl implements RecipeService {
 
 		recipeRepository.deleteById(id);
 
+	}
+
+	@Test(expected = NotFoundException.class)
+	public void testRecipeByIdNotFoundException() {
+
+		Optional<Recipe> recipeOptional = Optional.empty();
+
+		when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+		Optional<Recipe> recipeReturned = recipeRepository.findById(1l);
 	}
 
 }
