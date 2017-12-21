@@ -47,12 +47,11 @@
 										<li th:each="category : ${recipe.categories}" th:text="${category.description}">1111</li>
 									</ul>
 								</div>
-								<div class="col-md-6">
+                         		<div class="col-md-6">
 	                                <img src="../../static/images/guacamole400x400WithX.jpg"
-	                                     th:src="@{/images/guacamole400x400WithX.jpg}"
-	                                     width="200" height="200">
-	                                     <br><br>
-                           	 	</div>
+	                                     th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
+	                                     width="200" height="200" style="margin-bottom: 20px">
+                         	   </div>
 							</div>
 							<div class="row">
 								<div class="col-md-3">

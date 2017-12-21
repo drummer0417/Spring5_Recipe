@@ -41,7 +41,7 @@ public class ImageServiceImplTest {
 		// given
 		Long id = 1L;
 		MultipartFile multipartFile = new MockMultipartFile("imagefile", "testing.txt", "text/plain",
-				"Spring Framework Guru".getBytes());
+				"Android App Factory".getBytes());
 
 		Recipe recipe = new Recipe();
 		recipe.setId(id);

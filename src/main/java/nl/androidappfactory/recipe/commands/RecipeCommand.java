@@ -30,6 +30,7 @@ public class RecipeCommand {
 	private NotesCommand notes;
 	private Set<CategoryCommand> categories = new HashSet<>();
 	private String[] selectedCategories;
+	private Byte[] image;
 
 	public void addCategory(CategoryCommand categoryCommand) {
 		categories.add(categoryCommand);

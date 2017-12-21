@@ -1,5 +1,6 @@
 package nl.androidappfactory.recipe.controllers;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
@@ -15,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -24,6 +26,8 @@ import nl.androidappfactory.recipe.services.ImageService;
 import nl.androidappfactory.recipe.services.RecipeService;
 
 public class ImageControllerTest {
+
+	public static Byte[] IMAGE;
 
 	@Mock
 	ImageService imageService;
@@ -41,6 +45,16 @@ public class ImageControllerTest {
 
 		controller = new ImageController(imageService, recipeService);
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+		String testString = "here is the test String";
+		Byte[] testBytes = new Byte[testString.length()];
+
+		int i = 0;
+		for (byte aByte : testString.getBytes()) {
+			testBytes[i++] = aByte;
+		}
+
+		IMAGE = testBytes;
 	}
 
 	@Test
@@ -71,5 +85,26 @@ public class ImageControllerTest {
 				.andExpect(header().string("Location", "/recipe/1/show"));
 
 		verify(imageService, times(1)).saveImageFile(anyLong(), any());
+	}
+
+	@Test
+	public void getImageFromDB() throws Exception {
+
+		// given
+		RecipeCommand command = new RecipeCommand();
+		command.setId(1L);
+
+		command.setImage(IMAGE);
+
+		when(recipeService.findCommandById(anyLong())).thenReturn(command);
+
+		// when
+		MockHttpServletResponse response = mockMvc.perform(get("/recipe/1/recipeimage"))
+				.andExpect(status().isOk())
+				.andReturn().getResponse();
+
+		byte[] reponseBytes = response.getContentAsByteArray();
+
+		assertEquals(IMAGE.length, reponseBytes.length);
 	}
 }

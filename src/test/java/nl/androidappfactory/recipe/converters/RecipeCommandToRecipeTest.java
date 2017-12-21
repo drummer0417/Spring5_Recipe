@@ -29,6 +29,7 @@ public class RecipeCommandToRecipeTest {
 	public static final Long INGRED_ID_1 = 3L;
 	public static final Long INGRED_ID_2 = 4L;
 	public static final Long NOTES_ID = 9L;
+	public static Byte[] IMAGE;
 
 	RecipeCommandToRecipe converter;
 
@@ -38,6 +39,17 @@ public class RecipeCommandToRecipeTest {
 				new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure()),
 				new NotesCommandToNotes(),
 				new CategoryCommandToCategory());
+
+		String testString = "here is the test String";
+		Byte[] testBytes = new Byte[testString.length()];
+
+		int i = 0;
+		for (byte aByte : testString.getBytes()) {
+			testBytes[i++] = aByte;
+		}
+
+		IMAGE = testBytes;
+
 	}
 
 	@Test
@@ -64,6 +76,7 @@ public class RecipeCommandToRecipeTest {
 		recipeCommand.setServings(SERVINGS);
 		recipeCommand.setSource(SOURCE);
 		recipeCommand.setUrl(URL);
+		recipeCommand.setImage(IMAGE);
 
 		NotesCommand notes = new NotesCommand();
 		notes.setId(NOTES_ID);
@@ -104,6 +117,7 @@ public class RecipeCommandToRecipeTest {
 		assertEquals(NOTES_ID, recipe.getNotes().getId());
 		assertEquals(2, recipe.getCategories().size());
 		assertEquals(2, recipe.getIngredients().size());
+		assertEquals(IMAGE.length, recipe.getImage().length);
 	}
 
 }

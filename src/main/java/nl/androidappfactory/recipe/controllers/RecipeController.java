@@ -71,6 +71,15 @@ public class RecipeController {
 
 		log.debug("in saveOrUpdate: " + Arrays.toString(recipeCommand.getSelectedCategories()));
 
+		// Recipe recipe = null;
+		// try {
+		// recipe = recipeService.findById(recipeCommand.getId());
+		// recipeCommand.setImage(recipe.getImage());
+		// } catch (Exception e) {
+		//
+		// // Ignore... is new recipe TODO: handle exception in service
+		// }
+
 		RecipeCommand recipeAfterSave = recipeService.saveRecipeCommand(recipeCommand);
 		log.debug("after save: " + recipeAfterSave.getId());
 		return "redirect:/recipe/" + recipeAfterSave.getId() + "/show";
