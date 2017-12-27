@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
+import nl.androidappfactory.recipe.exceptions.NotFoundException;
 import nl.androidappfactory.recipe.models.Recipe;
 import nl.androidappfactory.recipe.repositories.RecipeRepository;
 
@@ -27,8 +28,7 @@ public class ImageServiceImpl implements ImageService {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
 		if (!recipeOptional.isPresent()) {
-			// Todo: Add real error handling here
-			throw new RuntimeException("Recipe not found");
+			throw new NotFoundException("Recipe not found");
 		}
 		Recipe recipe = recipeOptional.get();
 
@@ -45,7 +45,7 @@ public class ImageServiceImpl implements ImageService {
 			recipeRepository.save(recipe);
 
 		} catch (Exception e) {
-			// Todo: Add real error handling here
+
 			throw new RuntimeException(e);
 
 		}

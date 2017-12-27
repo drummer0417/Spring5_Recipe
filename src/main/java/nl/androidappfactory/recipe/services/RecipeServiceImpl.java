@@ -44,8 +44,7 @@ public class RecipeServiceImpl implements RecipeService {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
 		if (!recipeOptional.isPresent()) {
-			// Todo: Add real error handling here
-			throw new NotFoundException("Recipe not found");
+			throw new NotFoundException("Recipe not found for id: " + id);
 		}
 		return recipeOptional.get();
 	}
@@ -56,8 +55,7 @@ public class RecipeServiceImpl implements RecipeService {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
 		if (!recipeOptional.isPresent()) {
-			// Todo: Add real error handling here
-			throw new NotFoundException("Recipe not found");
+			throw new NotFoundException("Recipe not found for id: " + id);
 		}
 		return recipeToCommandConverter.convert(recipeOptional.get());
 
@@ -68,11 +66,14 @@ public class RecipeServiceImpl implements RecipeService {
 
 		recipeCommand.getCategories().clear();
 
-		for (String id : recipeCommand.getSelectedCategories()) {
-			CategoryCommand categoryCommand = new CategoryCommand();
-			categoryCommand.setId(new Long(id));
-			recipeCommand.addCategory(categoryCommand);
-			log.debug("newCategory, id: " + id);
+		if (recipeCommand.getSelectedCategories() != null) {
+
+			for (String id : recipeCommand.getSelectedCategories()) {
+				CategoryCommand categoryCommand = new CategoryCommand();
+				categoryCommand.setId(new Long(id));
+				recipeCommand.addCategory(categoryCommand);
+				log.debug("newCategory, id: " + id);
+			}
 		}
 
 		Recipe recipe = commandToRecipeConverter.convert(recipeCommand);

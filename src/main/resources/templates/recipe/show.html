@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Show Recipe</title>
+<title  th:text="#{form.title}">Show Recipe</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -31,8 +31,8 @@
 								</div>
 
 								<div class="col-md-1">
-									<a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change
-										Image</a>
+									<a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/image'}" 
+									role="button" th:text=#{button.changeImage}>Change Image</a>
 								</div>
 							</div>
 
@@ -40,7 +40,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-3">
-									<p>Categories:</p>
+									<p th:text="#{recipe.categories}">Categories:</p>
 								</div>
 								<div class="col-md-3">
 									<ul>
@@ -54,13 +54,13 @@
                          	   </div>
 							</div>
 							<div class="row">
-								<div class="col-md-3">
+								<div class="col-md-3" th:text="#{recipe.prepTime}">
 									<p>Prep Time:</p>
 								</div>
 								<div class="col-md-3">
 									<p th:text="${recipe.prepTime} + ' min'">301 min</p>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-3" th:text="#{recipe.difficulty}">
 									<p>Difficulty:</p>
 								</div>
 								<div class="col-md-3">
@@ -68,13 +68,13 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-3">
+								<div class="col-md-3" th:text="#{recipe.cookTime}">
 									<p>Cooktime:</p>
 								</div>
 								<div class="col-md-3">
 									<p th:text="${recipe.cookTime + ' min'}">30 min</p>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-3" th:text="#{recipe.servings}">
 									<p>Servings:</p>
 								</div>
 								<div class="col-md-3">
@@ -82,13 +82,13 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-3">
+								<div class="col-md-3" th:text="#{recipe.source}">
 									<p>Source:</p>
 								</div>
 								<div class="col-md-3">
 									<p th:text="${recipe.source}">30 min!</p>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-3"  th:text="#{recipe.url}">
 									<p>URL:</p>
 								</div>
 								<div class="col-md-3">
@@ -102,10 +102,10 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-md-11 ">
-									<h1 class="panel-title">Ingredients</h1>
+									<h1 class="panel-title" th:text="#{recipe.ingredients}">Ingredients</h1>
 								</div>
 								<div class="col-md-1">
-									<a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+									<a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button" th:text="#{button.view}">View</a>
 								</div>
 							</div>
 						</div>
@@ -125,8 +125,8 @@
 					</div>
 				</div>
 				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h1 class="panel-title">Directions</h1>
+					<div class="panel-heading" >
+						<h1 class="panel-title"  th:text="#{recipe.directions}">Directions</h1>
 					</div>
 					<div class="panel-body">
 						<div class="row">
@@ -140,7 +140,7 @@
 				</div>
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h1 class="panel-title">Notes</h1>
+						<h1 class="panel-title" th:text="#{recipe.notes}">Notes</h1>
 					</div>
 					<div class="panel-body">
 						<div class="row">

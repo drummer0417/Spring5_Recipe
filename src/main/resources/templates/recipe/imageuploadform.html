@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Image Upload Form</title>
+    <title th:text="#{form.title}">Image Upload Form</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -24,7 +24,7 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title">Upload a new recipe image</h1>
+                        <h1 class="panel-title"  th:text="#{form.uploadImage}">Upload a new recipe image</h1>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -32,13 +32,13 @@
                                 <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
                                        th:action="@{'/recipe/' + ${recipe.getId()} + '/image'}">
                                        <div>
-		                                    <label class="control-label">Select File</label>
+		                                    <label class="control-label" th:text="#{form.selectFile}">Select File</label>
 		                                    <br>
 		                                    <input id="imagefile" name="imagefile" type="file" class="file">
                                       		<br>
                                        </div>
                                        <div>
-	                                   		<button type="submit" class="btn btn-primary">Submit!</button>	                                       
+	                                   		<button type="submit" class="btn btn-primary" th:text="#{button.startUpload}">Submit!</button>	                                       
                                        </div>
                                 </form>
                             </div>

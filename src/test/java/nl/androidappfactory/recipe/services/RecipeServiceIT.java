@@ -27,7 +27,7 @@ import nl.androidappfactory.recipe.repositories.RecipeRepository;
 public class RecipeServiceIT {
 
 	public static final String NEW_DESCRIPTION = "New Description";
-	public static final String RECIPE_NOT_FOUND = "Recipe not found";
+	public static final String RECIPE_NOT_FOUND = "Recipe not found for id: ";
 
 	@Autowired
 	RecipeService recipeService;
@@ -78,7 +78,7 @@ public class RecipeServiceIT {
 		} catch (NotFoundException e) {
 
 			// then 2
-			assertEquals(RECIPE_NOT_FOUND, e.getMessage());
+			assertEquals(RECIPE_NOT_FOUND + "1", e.getMessage());
 			throw e;
 		}
 	}

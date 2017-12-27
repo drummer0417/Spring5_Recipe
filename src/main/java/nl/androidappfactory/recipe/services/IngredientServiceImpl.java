@@ -11,6 +11,7 @@ import nl.androidappfactory.recipe.commands.IngredientCommand;
 import nl.androidappfactory.recipe.converters.IngredientCommandToIngredient;
 import nl.androidappfactory.recipe.converters.IngredientToIngredientCommand;
 import nl.androidappfactory.recipe.converters.UnitOfMeasureCommandToUnitOfMeasure;
+import nl.androidappfactory.recipe.exceptions.NotFoundException;
 import nl.androidappfactory.recipe.models.Ingredient;
 import nl.androidappfactory.recipe.models.Recipe;
 import nl.androidappfactory.recipe.repositories.IngredientRepository;
@@ -45,8 +46,7 @@ public class IngredientServiceImpl implements IngredientService {
 
 		if (!recipeOptional.isPresent()) {
 
-			// Todo: Add real error handling here
-			throw new RuntimeException("Recipe not found");
+			throw new NotFoundException("Recipe not found");
 		}
 
 		// Set<Ingredient> ingredients = recipeOptional.get().getIngredients();
@@ -62,8 +62,8 @@ public class IngredientServiceImpl implements IngredientService {
 		if (ingredientCommandOptional.isPresent()) {
 			return ingredientCommandOptional.get();
 		} else {
-			// Todo: Add real error handling here
-			throw new RuntimeException("Ingredient not found");
+
+			throw new NotFoundException("Ingredient not found");
 		}
 	}
 
@@ -73,8 +73,8 @@ public class IngredientServiceImpl implements IngredientService {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
 		if (!recipeOptional.isPresent()) {
-			// Todo: Add real error handling here
-			throw new RuntimeException("Recipe not found");
+
+			throw new NotFoundException("Recipe not found");
 		}
 		Recipe recipe = recipeOptional.get();
 
@@ -103,8 +103,8 @@ public class IngredientServiceImpl implements IngredientService {
 		Recipe savedRecipe = null;
 
 		if (!recipeOptional.isPresent()) {
-			// Todo: Add real error handling here
-			throw new RuntimeException("Recipe not found");
+
+			throw new NotFoundException("Recipe not found");
 		}
 
 		Recipe recipe = recipeOptional.get();
@@ -144,8 +144,8 @@ public class IngredientServiceImpl implements IngredientService {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientCommand.getRecipeId());
 
 		if (!recipeOptional.isPresent()) {
-			// Todo: Add real error handling here
-			throw new RuntimeException("Recipe not found");
+
+			throw new NotFoundException("Recipe not found");
 		}
 		Ingredient savedIngredient = ingredientRepository
 				.save(ingredientCommandToIngredient.convert(ingredientCommand));
