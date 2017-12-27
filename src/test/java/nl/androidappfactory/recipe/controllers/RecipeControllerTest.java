@@ -134,7 +134,7 @@ public class RecipeControllerTest {
 		mockMvc.perform(get("/recipe/2/delete"))
 				// then
 				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/index"));
+				.andExpect(view().name("redirect:/"));
 
 		verify(recipeService, times(1)).deleteByID(anyLong());
 	}
