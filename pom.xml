@@ -5,7 +5,7 @@
 
 	<groupId>nl.androidappfactory</groupId>
 	<artifactId>Recipe</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.5</version>
 	<packaging>jar</packaging>
 
 	<name>Recipe</name>
