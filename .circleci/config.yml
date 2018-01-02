@@ -41,8 +41,7 @@ jobs:
       - run: mvn integration-test cobertura:cobertura
 
       - store_test_results:
-          path: target/surefire-reports
-
+          path: target/site/cobertura
       - store_artifacts:
           path: target/surefire-reports
 
