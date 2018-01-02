@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +29,7 @@ import nl.androidappfactory.recipe.repositories.UnitOfMeasureRepository;
  *
  */
 @Slf4j
+@Profile("default")
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 

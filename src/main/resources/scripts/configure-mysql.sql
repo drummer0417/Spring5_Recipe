@@ -28,4 +28,4 @@ GRANT UPDATE ON sfg_dev.* to 'sfg_dev_user'@'%';
 GRANT SELECT ON sfg_prod.* to 'sfg_prod_user'@'%';
 GRANT INSERT ON sfg_prod.* to 'sfg_prod_user'@'%';
 GRANT DELETE ON sfg_prod.* to 'sfg_prod_user'@'%';
-GRANT UPDATE ON sfg_prod.* to 'sfg_prod_user'@'%';+++
+GRANT UPDATE ON sfg_prod.* to 'sfg_prod_user'@'%';
